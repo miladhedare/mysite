@@ -1,0 +1,38 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+.continer{
+    justify-content: center;
+   display: grid;
+   grid-template-columns: 100vh ;
+   grid-template-rows: 50vh 50vh;
+}
+.itemms{
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+}
+button{
+    border: none;
+    border-radius: 50px;
+    height: 100px;
+    width: 100px;
+    background-color: aqua;
+}
+button:hover{
+    color: white;
+    background-color: rgb(93, 66, 214);
+}
+#countlable{
+    text-align: center;
+    font-size: 100px;
+}
+#item-2{
+    gap: 20px;
+    flex-direction: row;
+    justify-self: center;
+    align-self: center;
+
+}
