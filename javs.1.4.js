@@ -1,3 +1,4 @@
+
 let letters = [];
 let isGenerated = false;
 
@@ -33,7 +34,7 @@ function generateTest() {
             const answer = word.replace(/_/g, "").toLowerCase();
             let prefixLength;
 
-            if (answer.length <= 3) {
+            if (answer.length <= 2) {
                 prefixLength = 1; // کلمات خیلی کوتاه فقط یک حرف
             } else if (answer.length >= 6) {
                 prefixLength = Math.floor(Math.random() * (answer.length - 2)) + 3; 
@@ -118,6 +119,7 @@ function checkAnswers() {
 
     document.getElementById("answersBox").style.display = "block";
 }
+
 
 
 
