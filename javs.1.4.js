@@ -1,25 +1,3 @@
-let letters = [];
-let isGenerated = false;
-
-function toggleGenerate() {
-    const passageBox = document.getElementById("userPassage");
-    const btn = document.getElementById("generateBtn");
-    
-    if (!isGenerated) {
-        generateTest();
-        passageBox.style.display = "none";
-        btn.textContent = "Regenerate Test";
-        isGenerated = true;
-    } else {
-        passageBox.style.display = "block";
-        document.getElementById("passageOutput").innerHTML = "";
-        document.getElementById("answersBox").style.display = "none";
-        letters = [];
-        btn.textContent = "Generate Test";
-        isGenerated = false;
-    }
-}
-
 function generateTest() {
     const passageText = document.getElementById("userPassage").value;
     const output = document.getElementById("passageOutput");
@@ -34,12 +12,17 @@ function generateTest() {
             let prefixLength;
 
             if (answer.length <= 3) {
-                prefixLength = 1;
+                prefixLength = 1; // کلمات کوتاه فقط یک حرف اول
+            } else if (answer.length > 6) {
+                // کلمات طولانی حداقل 3 حرف اول
+                prefixLength = Math.floor(Math.random() * 2) + 3; // 3 یا 4 حرف اول
+                prefixLength = Math.min(prefixLength, answer.length - 1);
             } else {
+                // کلمات متوسط 4 تا 6 حرف، 1 تا 3 حرف اول
                 prefixLength = Math.floor(Math.random() * 3) + 1;
+                prefixLength = Math.min(prefixLength, answer.length - 1);
             }
 
-            prefixLength = Math.min(prefixLength, answer.length - 1);
             const prefixText = answer.slice(0, prefixLength);
             const remaining = answer.slice(prefixLength);
 
@@ -68,49 +51,4 @@ function generateTest() {
             output.appendChild(document.createTextNode(word + " "));
         }
     });
-}
-
-document.addEventListener("input", e => {
-    if (e.target.classList.contains("letter") && e.target.value.length === 1) {
-        const i = letters.indexOf(e.target);
-        if (letters[i+1]) letters[i+1].focus();
-    }
-});
-
-document.addEventListener("keydown", e => {
-    if (e.target.classList.contains("letter") && e.key === "Backspace") {
-        const i = letters.indexOf(e.target);
-        if (e.target.value === "" && letters[i-1]) {
-            e.preventDefault();
-            letters[i-1].value = "";
-            letters[i-1].focus();
-        }
-    }
-});
-
-function checkAnswers() {
-    const answersList = document.getElementById("answersList");
-    answersList.innerHTML = "";
-    document.querySelectorAll(".word").forEach(word => {
-        const answer = word.dataset.answer.toLowerCase();
-        const prefixLength = parseInt(word.dataset.prefix);
-        const inputs = word.querySelectorAll(".letter");
-
-        inputs.forEach((input, i) => {
-            input.classList.remove("correct", "wrong", "empty");
-            if (!input.value) {
-                input.classList.add("empty");
-            } else if (input.value.toLowerCase() === answer[prefixLength+i]) {
-                input.classList.add("correct");
-            } else {
-                input.classList.add("wrong");
-            }
-        });
-
-        const li = document.createElement("li");
-        li.textContent = answer;
-        answersList.appendChild(li);
-    });
-
-    document.getElementById("answersBox").style.display = "block";
 }
