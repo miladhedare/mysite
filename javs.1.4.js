@@ -36,7 +36,7 @@ function generateTest() {
             if (answer.length <= 3) {
                 prefixLength = 1; // کلمات خیلی کوتاه فقط یک حرف
             } else if (answer.length >= 6) {
-                prefixLength = (answer.length - 2)) + 3; 
+                prefixLength = Math.floor(Math.random() * (answer.length - 2)) + 3; 
                 // حداقل 3 حرف، حداکثر طول - 1
             } else {
                 prefixLength = Math.floor(Math.random() * 3) + 1; // 1 تا 3 حرف برای بقیه
@@ -118,5 +118,6 @@ function checkAnswers() {
 
     document.getElementById("answersBox").style.display = "block";
 }
+
 
 
