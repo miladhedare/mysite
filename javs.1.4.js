@@ -32,18 +32,11 @@ function generateTest() {
     words.forEach(word => {
         if (word.includes("_")) {
             const answer = word.replace(/_/g, "").toLowerCase();
-            let prefixLength;
+            
+            // تعیین طول پیشوند بر اساس 40٪ از طول کلمه
+            let prefixLength = Math.ceil(answer.length * 0.4);
+            prefixLength = Math.min(prefixLength, answer.length - 1); // حداقل 1 حرف مخفی
 
-            if (answer.length <= 3) {
-                prefixLength = 1; // کلمات خیلی کوتاه فقط یک حرف
-            } else if (answer.length >= 6) {
-                prefixLength = Math.floor(Math.random() * (answer.length - 2)) + 3; 
-                // حداقل 3 حرف، حداکثر طول - 1
-            } else {
-                prefixLength = Math.floor(Math.random() * 3) + 1; // 1 تا 3 حرف برای بقیه
-            }
-
-            prefixLength = Math.min(prefixLength, answer.length - 1);
             const prefixText = answer.slice(0, prefixLength);
             const remaining = answer.slice(prefixLength);
 
@@ -51,7 +44,7 @@ function generateTest() {
             span.classList.add("word");
             span.dataset.answer = answer;
             span.dataset.prefix = prefixLength;
-            
+
             const prefix = document.createElement("span");
             prefix.classList.add("prefix");
             prefix.textContent = prefixText;
@@ -73,6 +66,7 @@ function generateTest() {
         }
     });
 }
+
 
 
 document.addEventListener("input", e => {
@@ -119,6 +113,7 @@ function checkAnswers() {
 
     document.getElementById("answersBox").style.display = "block";
 }
+
 
 
 
