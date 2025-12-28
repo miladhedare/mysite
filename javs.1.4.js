@@ -42,7 +42,7 @@ function generateTest() {
                 prefixLength = Math.floor(Math.random() * 3) + 1; // 1 تا 3 حرف برای بقیه
             }
 
-            prefixLength = Math.min(prefixLength, answer.length - 2);
+            prefixLength = Math.min(prefixLength, answer.length - 3);
             const prefixText = answer.slice(0, prefixLength);
             const remaining = answer.slice(prefixLength);
 
@@ -118,6 +118,7 @@ function checkAnswers() {
 
     document.getElementById("answersBox").style.display = "block";
 }
+
 
 
 
