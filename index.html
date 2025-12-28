@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html>
-    <head><meta charset="utf-8">
-    <link rel="stylesheet" href="css1.4.css">
-    </head>
-    <body>
-       <div class="continer">
-        <div class="itemms " id="item-1">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dynamic TOEFL Complete the Words</title>
+<link rel="stylesheet" href="css1.4.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
 
-         <label id="countlable">
-            0
-         </label>
-         </div>
-         <div class="itemms"  id="item-2">
-         <br>
-         <button id="increasebton" >
-            Increas
-         </button>
-         <button id="resetbton">
-            reset
-         </button>
-         <button id="decresebton">
-            decrease
-         </button>
-         </div>
-       </div>
-       <script src="javs.1.4.js"></script> 
-    </body>
+<div class="container">
+    <h2>Dynamic TOEFL Complete the Words By Milad Haidari</h2>
+    <p>Enter a passage. Use underscores for letters in the words to guess. Example: p_u_p_u_l_a_t_i_o_n</p>
+
+    <textarea id="userPassage" placeholder="Paste your passage here..."></textarea><br>
+    <button id="generateBtn" onclick="toggleGenerate()">Generate Test</button>
+    <button onclick="checkAnswers()">Check Answers</button>
+
+    <div class="passage-output" id="passageOutput"></div>
+
+    <div class="answers" id="answersBox" style="display:none;">
+        <h3>Correct Answers</h3>
+        <ul id="answersList"></ul>
+    </div>
+</div>
+
+<script src="javs.1.4.js"></script>
+</body>
 </html>
