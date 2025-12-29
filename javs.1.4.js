@@ -20,7 +20,6 @@ function toggleGenerate() {
         isGenerated = false;
     }
 }
-
 function generateTest() {
     const passageText = document.getElementById("userPassage").value;
     const output = document.getElementById("passageOutput");
@@ -30,12 +29,18 @@ function generateTest() {
     const words = passageText.split(/\s+/);
 
     words.forEach(word => {
-        if (word.includes("_")) {
-            const answer = word.replace(/_/g, "").toLowerCase();
-            
-            // تعیین طول پیشوند بر اساس 40٪ از طول کلمه
+
+        // جدا کردن علائم نگارشی انتهای کلمه
+        const match = word.match(/^(.+?)([.,!?;:]*)$/);
+        const cleanWord = match ? match[1] : word;
+        const punctuation = match ? match[2] : "";
+
+        if (cleanWord.includes("_")) {
+            const answer = cleanWord.replace(/_/g, "").toLowerCase();
+
+            // تعیین طول پیشوند (۴۰٪ کلمه)
             let prefixLength = Math.ceil(answer.length * 0.4);
-            prefixLength = Math.min(prefixLength, answer.length - 1); // حداقل 1 حرف مخفی
+            prefixLength = Math.min(prefixLength, answer.length - 1);
 
             const prefixText = answer.slice(0, prefixLength);
             const remaining = answer.slice(prefixLength);
@@ -60,9 +65,15 @@ function generateTest() {
             }
 
             output.appendChild(span);
+
+            // اضافه کردن علائم نگارشی بعد از تست
+            if (punctuation) {
+                output.appendChild(document.createTextNode(punctuation));
+            }
+
             output.appendChild(document.createTextNode(" "));
         } else {
-            output.appendChild(document.createTextNode(word + " "));
+            output.appendChild(document.createTextNode(cleanWord + punctuation + " "));
         }
     });
 }
@@ -113,6 +124,7 @@ function checkAnswers() {
 
     document.getElementById("answersBox").style.display = "block";
 }
+
 
 
 
